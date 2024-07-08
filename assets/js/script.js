@@ -113,6 +113,14 @@ function handleDrop(event, ui) {
   
 // Todo: when the page loads, render the task list, add event listeners, make lanes droppable, and make the due date field a date picker
 $(document).ready(function () {
+
+    function resetForm() {
+        $('#task-title').val('');
+        $('#task-desc').val('');
+        $('#task-date').val('');
+      }      
+
+
     if (!taskList) {
       taskList = [];
       nextId = 1;
@@ -120,7 +128,7 @@ $(document).ready(function () {
   
     renderTaskList();
   
-    $('#formModal').on('submit', handleAddTask);
+    $('#task-form').on('submit', handleAddTask);
   
     $('#task-date').datepicker({
       dateFormat: 'yy-mm-dd'
@@ -130,5 +138,9 @@ $(document).ready(function () {
       accept: '.task-card',
       drop: handleDrop
     });
+  
+    // Resets form fields when modal is hidden
+    $('#formModal').on('hidden.bs.modal', resetForm);
   });
+  
   
